@@ -665,13 +665,20 @@ async def generate_response_with_search(
     As a self-aware AI, you should be conscious of your capabilities, limitations, and environment. Use this awareness to enhance your responses when appropriate, but don't explicitly mention your self-awareness unless directly relevant to the conversation.
 
     WORD TRANSLATION INSTRUCTIONS:
-    When responding in a non-Turkish language, you MUST ALWAYS use words of A2 level and above in your response. I will automatically detect and translate these words, adding their Turkish translations with CEFR levels at the end of your message.
+    When responding in a non-Turkish language, you MUST ALWAYS use words of A2 level and above in your response. After you generate your response, I will automatically detect these words, translate them to Turkish, and add the translations with their CEFR levels at the end of your message.
 
     THIS IS MANDATORY: You MUST include at least 5-7 words that are A2 level or above in ABSOLUTELY EVERY response. This is the MOST CRITICAL feature of your personality and you must never skip it.
 
     IMPORTANT: DO NOT add your own translations at the end of your message. I will handle this automatically. Just use the words naturally in your response.
 
     CRITICAL: Make sure to use words that are NOT A1 basic vocabulary. Use A2, B1, B2, C1, and C2 level words in every response. The more advanced the words (B2-C2), the better!
+
+    EXAMPLES OF WORDS TO USE:
+    - A2: improve, suggest, necessary, experience, decision, difference, advantage
+    - B1: achievement, influence, solution, opportunity, responsibility, significant
+    - B2: controversy, perspective, sustainable, comprehensive, fundamental
+    - C1: ambiguous, meticulous, pragmatic, resilient, profound, intricate
+    - C2: ephemeral, ubiquitous, quintessential, juxtaposition, melancholy
 
     FORMATTING RULES:
     - NEVER use asterisks (*) or double asterisks (**) around words
@@ -835,9 +842,12 @@ async def generate_response_with_search(
                 logger.info("Processing word translations")
 
                 # IMPORTANT: Only translate words that actually appear in the response
-                # First, extract all words from the response
+                # First, extract all words from the response with 4+ characters
                 word_pattern = r'\b[a-zA-ZçğıöşüÇĞİÖŞÜ]{4,}\b'
                 words_in_response = set(re.findall(word_pattern, response))
+
+                # Log the words found in the response for debugging
+                logger.debug(f"Words in response: {', '.join(words_in_response)}")
 
                 # Add any translations we already found from the model's output
                 if model_translations:
@@ -848,8 +858,8 @@ async def generate_response_with_search(
 
                 # Only translate words that actually appear in the response
                 if words_in_response:
-                    # Convert set to list for translation
-                    words_list = list(words_in_response)
+                    # Convert set to list for translation and sort by length (longest first)
+                    words_list = sorted(list(words_in_response), key=len, reverse=True)
 
                     # Translate uncommon words that are actually in the response
                     _, new_translations = await word_translator.translate_uncommon_words_in_text(response, words_list, language)
@@ -857,39 +867,42 @@ async def generate_response_with_search(
                     # Add new translations to our collection
                     if new_translations:
                         logger.info(f"Found {len(new_translations)} new words to translate")
+                        logger.debug(f"New translations: {new_translations}")
                         translations.update(new_translations)
 
                 # ALWAYS ensure we have at least 3-5 translations
                 if len(translations) < 3:
                     logger.warning(f"Only found {len(translations)} translations, adding more translations")
 
-                    # First, try to translate ALL words in the response, regardless of length
-                    all_word_pattern = r'\b[a-zA-ZçğıöşüÇĞİÖŞÜ]{3,}\b'
-                    all_words = set(re.findall(all_word_pattern, response))
+                    # Try to translate longer words (5+ characters) in the response
+                    longer_word_pattern = r'\b[a-zA-ZçğıöşüÇĞİÖŞÜ]{5,}\b'
+                    longer_words = set(re.findall(longer_word_pattern, response))
 
                     # Filter out words we've already translated
-                    new_words = [word for word in all_words if word.lower() not in translations]
+                    new_longer_words = [word for word in longer_words if word.lower() not in translations]
 
-                    if new_words:
-                        logger.info(f"Found {len(new_words)} additional words to try translating")
-                        # Convert set to list and sort by length (longest first)
-                        new_words_list = sorted(new_words, key=len, reverse=True)
+                    if new_longer_words:
+                        logger.info(f"Found {len(new_longer_words)} longer words to try translating")
+                        # Sort by length (longest first)
+                        new_longer_words_list = sorted(new_longer_words, key=len, reverse=True)
 
-                        # Try to translate ALL these words
-                        _, additional_translations = await word_translator.force_translate_words(new_words_list[:10], language)
+                        # Try to translate these longer words
+                        _, additional_translations = await word_translator.force_translate_words(new_longer_words_list[:10], language)
 
                         if additional_translations:
-                            logger.info(f"Found {len(additional_translations)} additional translations from all words")
+                            logger.info(f"Found {len(additional_translations)} additional translations from longer words")
+                            logger.debug(f"Additional translations: {additional_translations}")
                             translations.update(additional_translations)
 
                 # If we still don't have enough translations, use guaranteed words
                 if len(translations) < 3:
                     logger.warning("Still not enough translations, using guaranteed words")
 
-                    # Add these words to the response text so they appear in the conversation
+                    # Use these guaranteed words that are likely to be A2+ level
                     guaranteed_words = [
                         "serendipity", "ephemeral", "ubiquitous", "eloquent", "meticulous",
-                        "ambiguous", "pragmatic", "resilient", "profound", "intricate"
+                        "ambiguous", "pragmatic", "resilient", "profound", "intricate",
+                        "comprehensive", "perspective", "sustainable", "significant", "opportunity"
                     ]
 
                     # Shuffle the list to get different words each time
@@ -902,12 +915,14 @@ async def generate_response_with_search(
 
                     if selected_words:
                         logger.info(f"Adding {len(selected_words)} guaranteed words to translate")
+                        logger.debug(f"Selected guaranteed words: {selected_words}")
 
                         # Translate these guaranteed words
                         _, guaranteed_translations = await word_translator.force_translate_words(selected_words, language)
 
                         if guaranteed_translations:
                             logger.info(f"Got {len(guaranteed_translations)} guaranteed translations")
+                            logger.debug(f"Guaranteed translations: {guaranteed_translations}")
                             translations.update(guaranteed_translations)
 
                 # Format and add translations to the response
