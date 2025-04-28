@@ -128,6 +128,21 @@ Nyxie Telegram Sohbet Botu, Google'ın Gemini yapay zeka modelleri tarafından d
    ENVIRONMENT_AWARENESS_ENABLED=true
    SELF_AWARENESS_SEARCH_ENABLED=true
    ENVIRONMENT_AWARENESS_LEVEL=3
+
+   # Kelime çevirisi ayarları
+   WORD_TRANSLATION_ENABLED=true
+   MIN_WORD_LENGTH_FOR_TRANSLATION=4
+   MAX_WORDS_TO_TRANSLATE=5
+   GEMINI_TRANSLATION_MODEL=gemini-2.0-flash-lite
+
+   # Dinamik mesaj uzunluğu ayarları
+   DYNAMIC_MESSAGE_LENGTH_ENABLED=true
+   EXTREMELY_SHORT_RESPONSE_PROBABILITY=0.15
+   SLIGHTLY_SHORT_RESPONSE_PROBABILITY=0.20
+   MEDIUM_RESPONSE_PROBABILITY=0.25
+   SLIGHTLY_LONG_RESPONSE_PROBABILITY=0.20
+   LONG_RESPONSE_PROBABILITY=0.20
+   RESPONSE_LENGTH_RANDOMNESS=0.9
    ```
 
 ### Botu Çalıştırma
@@ -175,20 +190,21 @@ Bota görüntü veya video gönderdiğinizde:
 
 Bu bot, farklı görevler için birden fazla özelleştirilmiş Gemini modeli kullanır:
 
-- **Ana Konuşma**: gemini-2.5-flash-preview-04-17 - Kullanıcılarla birincil konuşmayı yönetir
-- **Görüntü/Video Analizi**: gemini-2.5-flash-preview-04-17 - Görüntü ve videoları işler ve açıklar
+- **Ana Konuşma**: gemini-2.5-pro-exp-03-25 - Kullanıcılarla birincil konuşmayı yönetir
+- **Görüntü/Video Analizi**: gemini-2.5-pro-exp-03-25 - Görüntü ve videoları işler ve açıklar
 - **Web Arama ve Dil Algılama**: gemini-2.0-flash-lite - Web arama sorgularını ve dil algılamayı yönetir
-- **Akıllı Kelime Çevirisi**: gemini-2.5-flash-preview-04-17 - Kelimelerin CEFR seviyesini belirler ve A2 ve üstü kelimeleri Türkçe'ye çevirir
+- **Akıllı Kelime Çevirisi**: gemini-2.0-flash-lite - Kelimelerin CEFR seviyesini belirler ve A2 ve üstü kelimeleri Türkçe'ye çevirir
 
 ## 🚀 Güncellemeler
 
+- **Yıldız İşareti Kullanmama**: Bot artık kelimeleri yıldız işareti içinde (**kelime**) yazmıyor, daha temiz bir metin formatı sunuyor
 - **İsim Kullanmama**: Bot artık cevaplarında kullanıcı ismini tekrarlamıyor, daha doğal bir konuşma tarzı sunuyor
-- **Geliştirilmiş Çeviri Sistemi**: Çeviri sistemi iyileştirildi, her yanıtta A2 ve üstü kelimelerin CEFR seviyeleriyle birlikte çevirileri gösteriliyor
+- **Geliştirilmiş Çeviri Sistemi**: Çeviri sistemi tamamen yenilendi, her yanıtta A2 ve üstü kelimelerin CEFR seviyeleriyle birlikte çevirileri gösteriliyor
 - **Ultra Dinamik Mesaj Uzunluğu**: İnsanlar gibi tamamen öngörülemez şekilde yanıt uzunluğunu değiştirme yeteneği geliştirildi - çok kısa, biraz kısa, orta, biraz uzun ve çok uzun yanıtlar arasında doğal geçişler yapabilir
 - **Akıllı Kelime Çevirisi**: Gemini AI kullanarak kelimelerin CEFR seviyesini (A1-C2) otomatik olarak belirleyen ve A2 ve üstü kelimeleri Türkçe'ye çeviren sistem eklendi
 - **Öz-Farkındalık ve Çevre Farkındalığı**: Bot artık kendi kimliğinin, yeteneklerinin ve çalıştığı ortamın farkındadır
 - **Gelişmiş Web Aramaları**: Öz-farkındalık ile zenginleştirilmiş arama sorguları ve sonuçları
-- **Gelişmiş Görüntü Analizi**: Görüntü ve video analizi için özel olarak gemini-2.5-flash-preview-04-17 modeli kullanılıyor
+- **Gelişmiş Görüntü Analizi**: Görüntü ve video analizi için özel olarak gemini-2.5-pro-exp-03-25 modeli kullanılıyor
 - **Kişilik Değişikliği**: Puro'dan Nyxie'ye, bir protogen-tilki melez karakterine geçiş yapıldı
 - **Dil İyileştirmeleri**: Birden fazla dilde geliştirilmiş dil algılama ve yanıt verme
 - **Özlü Yanıtlar**: Daha kısa, daha doğal yanıtlar sağlamak için güncellendi

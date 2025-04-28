@@ -70,7 +70,7 @@ SLANG_PROBABILITY = float(os.getenv("SLANG_PROBABILITY", "0.4"))
 SLANG_LEVEL = int(os.getenv("SLANG_LEVEL", "3"))
 
 # Gemini model settings
-GEMINI_MODEL = "gemini-2.5-flash-preview-04-17"
+GEMINI_MODEL = "gemini-2.5-pro-exp-03-25"
 GEMINI_TEMPERATURE = 0.8  # Slightly higher temperature for more varied, natural responses
 GEMINI_TOP_P = 0.95
 GEMINI_TOP_K = 40
@@ -85,7 +85,7 @@ GEMINI_FLASH_LITE_TOP_K = 32
 GEMINI_FLASH_LITE_MAX_OUTPUT_TOKENS = 8192
 
 # Model for image analysis
-GEMINI_IMAGE_MODEL = "gemini-2.5-flash-preview-04-17"
+GEMINI_IMAGE_MODEL = "gemini-2.5-pro-exp-03-25"
 GEMINI_IMAGE_TEMPERATURE = 0.7
 GEMINI_IMAGE_TOP_P = 0.95
 GEMINI_IMAGE_TOP_K = 40
