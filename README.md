@@ -63,15 +63,13 @@ Nyxie Telegram Sohbet Botu, Google'ın Gemini yapay zeka modelleri tarafından d
 - **Mesaj Takibi**: Kullanıcının son mesajından bu yana geçen süreyi takip eder.
 - **Doğal Zaman Referansları**: Konuşmalarda zaman bilgisine doğal şekilde atıfta bulunur.
 
-### 🌐 Dil Adaptasyonu ve Çeviri
+### 🌐 Dil Adaptasyonu
 
 - **Otomatik Dil Algılama**: Kullanıcının dilini otomatik olarak algılar ve o dilde yanıt verir.
-- **Basit Dil Kullanımı**: Tüm dillerde basit kelime dağarcığı ve cümle yapıları (A1 seviyesi) kullanır.
+- **Doğal Dil Kullanımı**: Tüm dillerde gerçek bir insan gibi doğal ve günlük konuşma dili kullanır.
 - **Tutarlı Kişilik**: Tüm dillerde Nyxie'nin özgün kişiliğini korur.
 - **Dil Değiştirmeme**: Kullanıcı değiştirmedikçe dili değiştirmez.
 - **Gelişmiş Dil Desteği**: İngilizce ve Türkçe için gelişmiş destek, diğer birçok dil için temel destek sunar.
-- **Geliştirilmiş Çeviri Sistemi**: Her yanıtta A2 ve üstü kelimelerin CEFR seviyeleriyle birlikte çevirileri gösterilir.
-- **Akıllı Kelime Çevirisi**: Gemini AI kullanarak kelimelerin CEFR seviyesini (A1-C2) otomatik olarak belirler ve A2 ve üstü kelimeleri Türkçe'ye çevirir, seviyelerini de belirterek mesajın sonunda sunar.
 - **Ultra Dinamik Mesaj Uzunluğu**: İnsanlar gibi tamamen öngörülemez şekilde yanıt uzunluğunu değiştirir - çok kısa, biraz kısa, orta, biraz uzun ve çok uzun yanıtlar arasında doğal geçişler yapabilir.
 
 ## 🛠️ Kurulum
@@ -129,11 +127,8 @@ Nyxie Telegram Sohbet Botu, Google'ın Gemini yapay zeka modelleri tarafından d
    SELF_AWARENESS_SEARCH_ENABLED=true
    ENVIRONMENT_AWARENESS_LEVEL=3
 
-   # Kelime çevirisi ayarları
-   WORD_TRANSLATION_ENABLED=true
-   MIN_WORD_LENGTH_FOR_TRANSLATION=4
-   MAX_WORDS_TO_TRANSLATE=5
-   GEMINI_TRANSLATION_MODEL=gemini-2.0-flash-lite
+   # Kelime çevirisi ayarları - DEVRE DIŞI
+   WORD_TRANSLATION_ENABLED=false
 
    # Dinamik mesaj uzunluğu ayarları
    DYNAMIC_MESSAGE_LENGTH_ENABLED=true
@@ -190,18 +185,16 @@ Bota görüntü veya video gönderdiğinizde:
 
 Bu bot, farklı görevler için birden fazla özelleştirilmiş Gemini modeli kullanır:
 
-- **Ana Konuşma**: gemini-2.5-pro-exp-03-25 - Kullanıcılarla birincil konuşmayı yönetir
-- **Görüntü/Video Analizi**: gemini-2.5-pro-exp-03-25 - Görüntü ve videoları işler ve açıklar
+- **Ana Konuşma**: gemini-2.5-flash-preview-04-17 - Kullanıcılarla birincil konuşmayı yönetir
+- **Görüntü/Video Analizi**: gemini-2.5-flash-preview-04-17 - Görüntü ve videoları işler ve açıklar
 - **Web Arama ve Dil Algılama**: gemini-2.0-flash-lite - Web arama sorgularını ve dil algılamayı yönetir
-- **Akıllı Kelime Çevirisi**: gemini-2.0-flash-lite - Kelimelerin CEFR seviyesini belirler ve A2 ve üstü kelimeleri Türkçe'ye çevirir
 
 ## 🚀 Güncellemeler
 
 - **Yıldız İşareti Kullanmama**: Bot artık kelimeleri yıldız işareti içinde (**kelime**) yazmıyor, daha temiz bir metin formatı sunuyor
 - **İsim Kullanmama**: Bot artık cevaplarında kullanıcı ismini tekrarlamıyor, daha doğal bir konuşma tarzı sunuyor
-- **Geliştirilmiş Çeviri Sistemi**: Çeviri sistemi tamamen yenilendi, her yanıtta A2 ve üstü kelimelerin CEFR seviyeleriyle birlikte çevirileri gösteriliyor
+- **Doğal Dil Kullanımı**: Tüm dillerde gerçek bir insan gibi doğal ve günlük konuşma dili kullanılıyor
 - **Ultra Dinamik Mesaj Uzunluğu**: İnsanlar gibi tamamen öngörülemez şekilde yanıt uzunluğunu değiştirme yeteneği geliştirildi - çok kısa, biraz kısa, orta, biraz uzun ve çok uzun yanıtlar arasında doğal geçişler yapabilir
-- **Akıllı Kelime Çevirisi**: Gemini AI kullanarak kelimelerin CEFR seviyesini (A1-C2) otomatik olarak belirleyen ve A2 ve üstü kelimeleri Türkçe'ye çeviren sistem eklendi
 - **Öz-Farkındalık ve Çevre Farkındalığı**: Bot artık kendi kimliğinin, yeteneklerinin ve çalıştığı ortamın farkındadır
 - **Gelişmiş Web Aramaları**: Öz-farkındalık ile zenginleştirilmiş arama sorguları ve sonuçları
 - **Gelişmiş Görüntü Analizi**: Görüntü ve video analizi için özel olarak gemini-2.5-pro-exp-03-25 modeli kullanılıyor

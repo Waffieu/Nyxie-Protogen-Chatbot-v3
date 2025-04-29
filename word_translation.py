@@ -273,14 +273,14 @@ class WordTranslator:
                         cefr_level = parts[1].strip().upper()
                         translation = parts[2].strip()
 
-                        # Only add translations for A2 and above levels
-                        if cefr_level not in ["A1", "[A1]"]:
+                        # Only add translations for B2, C1 and C2 levels
+                        if cefr_level in ["B2", "C1", "C2", "[B2]", "[C1]", "[C2]"]:
                             forced_translations[word] = f"{translation} ({cefr_level})"
                     elif len(parts) == 2:  # Fallback for old format
                         word = parts[0].strip().lower()
                         translation = parts[1].strip()
-                        # Only add if it's not marked to be skipped or A1 level
-                        if translation != "[SKIP]" and translation != "[A1]" and translation != "[COMMON]":
+                        # Only add if it's marked as B2, C1 or C2 level
+                        if translation == "[B2]" or translation == "[C1]" or translation == "[C2]":
                             forced_translations[word] = translation
 
             # Update the cache with new translations
@@ -372,16 +372,16 @@ class WordTranslator:
                         # Store the CEFR level
                         cefr_levels[word] = cefr_level
 
-                        # Only add translations for A2 and above levels
-                        if translation != "[SKIP]" and cefr_level not in ["A1", "[A1]"]:
+                        # Only add translations for B2, C1 and C2 levels
+                        if translation != "[SKIP]" and cefr_level in ["B2", "C1", "C2", "[B2]", "[C1]", "[C2]"]:
                             # Add CEFR level to the translation for display
                             translations[word] = f"{translation} ({cefr_level})"
                     elif len(parts) == 2:  # Fallback for old format
                         word = parts[0].strip().lower()
                         translation = parts[1].strip()
 
-                        # Only add if it's not marked to be skipped or A1 level
-                        if translation != "[SKIP]" and translation != "[A1]" and translation != "[COMMON]":
+                        # Only add if it's marked as B2, C1 or C2 level
+                        if translation == "[B2]" or translation == "[C1]" or translation == "[C2]":
                             translations[word] = translation
 
             # Log the CEFR levels for debugging
@@ -422,7 +422,7 @@ class WordTranslator:
                 translation_text += f"• {word} = {translation}\n"
             else:
                 # Add a default level if not present (should not happen with new system)
-                translation_text += f"• {word} = {translation} (A2+)\n"
+                translation_text += f"• {word} = {translation} (B2+)\n"
 
         return translation_text
 

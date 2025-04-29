@@ -42,8 +42,8 @@ SELF_AWARENESS_SEARCH_ENABLED = os.getenv("SELF_AWARENESS_SEARCH_ENABLED", "true
 # Level of detail for environmental awareness (1-5)
 ENVIRONMENT_AWARENESS_LEVEL = int(os.getenv("ENVIRONMENT_AWARENESS_LEVEL", "3"))
 
-# Word translation settings
-WORD_TRANSLATION_ENABLED = os.getenv("WORD_TRANSLATION_ENABLED", "true").lower() == "true"
+# Word translation settings - DISABLED
+WORD_TRANSLATION_ENABLED = False
 # Minimum word length to consider for translation
 MIN_WORD_LENGTH_FOR_TRANSLATION = int(os.getenv("MIN_WORD_LENGTH_FOR_TRANSLATION", "4"))
 # Maximum number of words to translate per message
@@ -70,7 +70,7 @@ SLANG_PROBABILITY = float(os.getenv("SLANG_PROBABILITY", "0.4"))
 SLANG_LEVEL = int(os.getenv("SLANG_LEVEL", "3"))
 
 # Gemini model settings
-GEMINI_MODEL = "gemini-2.5-pro-exp-03-25"
+GEMINI_MODEL = "gemini-2.5-flash-preview-04-17"
 GEMINI_TEMPERATURE = 0.8  # Slightly higher temperature for more varied, natural responses
 GEMINI_TOP_P = 0.95
 GEMINI_TOP_K = 40
